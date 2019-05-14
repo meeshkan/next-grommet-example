@@ -9,11 +9,20 @@ interface IProps {
 
 const ProjectsComponent = (props: IProps) => {
   const { projects, comments } = props;
-  const [commentsOpen, setCommentsOpen] = React.useState(undefined);
-  const [detailedProject, setDetailedProject] = React.useState(undefined);
+  const projectsById = projects.reduce((acc, val, index) => {
+    acc[val.id] = { project: val, comments: comments[index].comments };
+    return acc;
+  }, {});
+  const [
+    commentsOpenForProjectId,
+    setCommentsOpenForProjectId,
+  ] = React.useState(undefined);
+  const [projectDetailsOpenForId, setProjectDetailsOpenForId] = React.useState(
+    undefined
+  );
 
-  const closeComment = () => setCommentsOpen(undefined);
-  const closeDescription = () => setDetailedProject(undefined);
+  const closeComment = () => setCommentsOpenForProjectId(undefined);
+  const closeDescription = () => setProjectDetailsOpenForId(undefined);
 
   return (
     <Grid
@@ -43,7 +52,7 @@ const ProjectsComponent = (props: IProps) => {
               primary
               onClick={async () => {
                 const detailedProjectResult = await getProject(project.id);
-                setDetailedProject({
+                setProjectDetailsOpenForId({
                   details: detailedProjectResult,
                   id: project.id,
                 });
@@ -52,47 +61,53 @@ const ProjectsComponent = (props: IProps) => {
             />
             <Button
               onClick={() => {
-                setCommentsOpen(project.id);
+                setCommentsOpenForProjectId(project.id);
               }}
               label="Comments"
             />
           </div>
-          {project.id === commentsOpen && (
-            <Layer
-              position="center"
-              modal
-              onClickOutside={closeComment}
-              onEsc={closeComment}
-            >
-              <Box pad="medium" flex overflow="auto">
-                <Heading level="3">Comments about {project.name}</Heading>
-                <div>
-                  {comments[i].comments.map((comment, j) => (
-                    <div key={`comment_${i}_${j}`}>
-                      <strong>{comment.user.first_name} said </strong>
-                      {comment.comment}
-                      <hr />
-                    </div>
-                  ))}
-                </div>
-              </Box>
-            </Layer>
-          )}
-          {detailedProject && detailedProject.id === project.id && (
-            <Layer
-              position="center"
-              modal
-              onClickOutside={closeDescription}
-              onEsc={closeDescription}
-            >
-              <Box pad="medium" flex overflow="auto">
-                <Heading level="3">Say hi to {project.name}</Heading>
-                <div>{detailedProject.details.description}</div>
-              </Box>
-            </Layer>
-          )}
+          {projectDetailsOpenForId &&
+            projectDetailsOpenForId.id === project.id && (
+              <Layer
+                position="center"
+                modal
+                onClickOutside={closeDescription}
+                onEsc={closeDescription}
+              >
+                <Box pad="medium" flex overflow="auto">
+                  <Heading level="3">Say hi to {project.name}</Heading>
+                  <div>{projectDetailsOpenForId.details.description}</div>
+                </Box>
+              </Layer>
+            )}
         </Box>
       ))}
+      {commentsOpenForProjectId && (
+        <Layer
+          position="center"
+          modal
+          onClickOutside={closeComment}
+          onEsc={closeComment}
+        >
+          <Box pad="medium" flex overflow="auto">
+            <Heading level="3">
+              Comments about{" "}
+              {projectsById[commentsOpenForProjectId].project.name}
+            </Heading>
+            <div>
+              {projectsById[commentsOpenForProjectId].comments.map(
+                (comment, j) => (
+                  <div key={`comment_${j}`}>
+                    <strong>{comment.user.first_name} said </strong>
+                    {comment.comment}
+                    <hr />
+                  </div>
+                )
+              )}
+            </div>
+          </Box>
+        </Layer>
+      )}
     </Grid>
   );
 };
