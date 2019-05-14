@@ -23,23 +23,7 @@ export default class MyDocument extends Document<IProps> {
   public render() {
     return (
       <html lang="en-US">
-        <Head>
-          {this.props.styleTags}
-          <meta name="viewport" content="width=device-width,initial-scale=1" />
-          <meta name="fragment" content="!" />
-          <meta name="mobile-web-app-capable" content="yes" />
-          <link
-            rel="shortcut icon"
-            type="image/png"
-            href="/static/img/shortcut-icon.png"
-          />
-          <link
-            rel="apple-touch-icon"
-            sizes="196x196"
-            type="image/png"
-            href="/static/img/mobile-app-icon.png"
-          />
-        </Head>
+        <Head>{this.props.styleTags}</Head>
         <body style={{ margin: 0 }}>
           <Main />
           <NextScript />

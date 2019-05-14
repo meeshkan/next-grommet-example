@@ -3,19 +3,19 @@ import React from "react";
 import { unmock } from "unmock";
 import { getProject, getProjectsAndComments } from "./util";
 
-interface Props {
+interface IProps {
   comments: any;
   projects: any;
   err: string;
 }
 
-interface State {
+interface IState {
   detailedProjects: any;
   commentsOpen: any;
   descriptionOpen: any;
 }
 
-class MainComponent extends React.Component<Props, State> {
+class MainComponent extends React.Component<IProps, IState> {
   public static async getInitialProps() {
     // Initialize unmock in server-side
     await unmock({ ignore: "story", token: process.env.UNMOCK_TOKEN });
@@ -29,7 +29,7 @@ class MainComponent extends React.Component<Props, State> {
       return { err: err.message };
     }
   }
-  public state: State = {
+  public state: IState = {
     commentsOpen: {},
     descriptionOpen: {},
     detailedProjects: {},

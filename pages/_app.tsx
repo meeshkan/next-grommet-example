@@ -26,6 +26,9 @@ const AppBar = props => (
   />
 );
 
+/**
+ * Common theme for app using Grommet
+ */
 export default class MyApp extends App {
   public static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
