@@ -7,18 +7,34 @@ interface IProps {
   comments: any;
 }
 
+type ProjectAndComments = {
+  project: any;
+  comments: any[];
+};
+
+type ProjectsById = {
+  [id: number]: ProjectAndComments;
+};
+
+type ProjectDetails = {
+  id: number;
+  details: any;
+};
+
 const ProjectsComponent = (props: IProps) => {
   const { projects, comments } = props;
-  const projectsById = projects.reduce((acc, val, index) => {
+  const projectsById: ProjectsById = projects.reduce((acc, val, index) => {
     acc[val.id] = { project: val, comments: comments[index].comments };
     return acc;
   }, {});
+
   const [
     commentsOpenForProjectId,
     setCommentsOpenForProjectId,
   ] = React.useState(undefined);
+
   const [projectDetailsOpenForId, setProjectDetailsOpenForId] = React.useState(
-    undefined
+    undefined as ProjectDetails
   );
 
   const closeComment = () => setCommentsOpenForProjectId(undefined);
@@ -66,22 +82,23 @@ const ProjectsComponent = (props: IProps) => {
               label="Comments"
             />
           </div>
-          {projectDetailsOpenForId &&
-            projectDetailsOpenForId.id === project.id && (
-              <Layer
-                position="center"
-                modal
-                onClickOutside={closeDescription}
-                onEsc={closeDescription}
-              >
-                <Box pad="medium" flex overflow="auto">
-                  <Heading level="3">Say hi to {project.name}</Heading>
-                  <div>{projectDetailsOpenForId.details.description}</div>
-                </Box>
-              </Layer>
-            )}
         </Box>
       ))}
+      {projectDetailsOpenForId && (
+        <Layer
+          position="center"
+          modal
+          onClickOutside={closeDescription}
+          onEsc={closeDescription}
+        >
+          <Box pad="medium" flex overflow="auto">
+            <Heading level="3">
+              Say hi to {projectsById[projectDetailsOpenForId.id].project.name}
+            </Heading>
+            <div>{projectDetailsOpenForId.details.description}</div>
+          </Box>
+        </Layer>
+      )}
       {commentsOpenForProjectId && (
         <Layer
           position="center"
