@@ -1,6 +1,7 @@
 import { Box, Button, Grid, Heading, Layer } from "grommet";
 import React from "react";
 import { unmock } from "unmock";
+import ErrorComponent from "../components/error-component";
 import { getProject, getProjectsAndComments } from "./util";
 
 interface IProps {
@@ -21,9 +22,7 @@ class MainComponent extends React.Component<IProps, IState> {
     await unmock({ ignore: "story", token: process.env.UNMOCK_TOKEN });
     console.log("Fetching initial props...");
     try {
-      const props = await getProjectsAndComments();
-      // console.log(`Got props: ${JSON.stringify(props)}`);
-      return props;
+      return await getProjectsAndComments();
     } catch (err) {
       console.error("Failed loading data", err.message);
       return { err: err.message };
@@ -53,15 +52,7 @@ class MainComponent extends React.Component<IProps, IState> {
     };
     return (
       <div>
-        {err && (
-          <div>
-            <Heading level="3">Well, this is embarassing...</Heading>
-            <p>
-              It looks like we couldn't fetch any projects. Please try again
-              soon! Error: {err}
-            </p>
-          </div>
-        )}
+        {err && <ErrorComponent err={err} />}
         {!err && (
           <Grid
             columns={{
