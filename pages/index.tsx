@@ -4,13 +4,13 @@ import ErrorComponent from "../components/error-component";
 import ProjectsGrid from "../components/projects-grid";
 import { getProjectsAndComments } from "../util/behance";
 
-interface IProps {
+interface Props {
   comments: any;
   projects: any;
   err: string;
 }
 
-class MainComponent extends React.Component<IProps> {
+class MainComponent extends React.Component<Props> {
   public static async getInitialProps() {
     // Initialize unmock in server-side
     await unmock({ ignore: "story", token: process.env.UNMOCK_TOKEN });
