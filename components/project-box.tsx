@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Heading, Layer } from "grommet";
+import { Box, Button, Heading } from "grommet";
 
 interface IProps {
   project: any;
@@ -6,7 +6,7 @@ interface IProps {
   onOpenComments: () => void;
 }
 
-const Project = (props: IProps) => (
+const ProjectBox = (props: IProps) => (
   <Box
     gap="small"
     direction="column"
@@ -32,4 +32,4 @@ const Project = (props: IProps) => (
   </Box>
 );
 
-export default Project;
+export default ProjectBox;

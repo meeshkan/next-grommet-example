@@ -3,7 +3,7 @@ import React from "react";
 import { getProject } from "../pages/util";
 import CommentsOpenModal from "./comments-open-modal";
 import DescriptionModal from "./description-open-modal";
-import ProjectBox from "./project";
+import ProjectBox from "./project-box";
 
 interface IProps {
   projects: any;
@@ -27,7 +27,7 @@ type ProjectDetails = {
 type CommentsOpenState = number | undefined;
 type ProjectDetailsState = ProjectDetails | undefined;
 
-const ProjectsComponent = (props: IProps) => {
+const ProjectsGrid = (props: IProps) => {
   const { projects, comments } = props;
 
   /**
@@ -98,4 +98,4 @@ const ProjectsComponent = (props: IProps) => {
   );
 };
 
-export default ProjectsComponent;
+export default ProjectsGrid;

@@ -1,7 +1,7 @@
 import React from "react";
 import { unmock } from "unmock";
 import ErrorComponent from "../components/error-component";
-import ProjectsComponent from "../components/projects-component";
+import ProjectsGrid from "../components/projects-grid";
 import { getProjectsAndComments } from "./util";
 
 interface IProps {
@@ -37,7 +37,7 @@ class MainComponent extends React.Component<IProps> {
     return (
       <div>
         {err && <ErrorComponent err={err} />}
-        {!err && <ProjectsComponent projects={projects} comments={comments} />}
+        {!err && <ProjectsGrid projects={projects} comments={comments} />}
       </div>
     );
   }
