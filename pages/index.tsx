@@ -1,5 +1,4 @@
 import React from "react";
-import { unmock as unmockJSDom } from "unmock-jsdom";
 import { unmock as unmockNode } from "unmock-node";
 import ErrorComponent from "../components/error-component";
 import ProjectsGrid from "../components/projects-grid";
@@ -25,6 +24,8 @@ class MainComponent extends React.Component<Props> {
     }
   }
   public async componentDidMount() {
+    const { unmock: unmockJSDom } = require("unmock-jsdom");
+
     if (process.env.UNMOCK_TOKEN) {
       console.log("Initializing unmock with token");
     } else {
