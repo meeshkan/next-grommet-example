@@ -14,7 +14,7 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "styled-components": "^4.2.0",
-    "unmock": "^0.0.40"
+    "unmock-node": "^0.0.46"
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",

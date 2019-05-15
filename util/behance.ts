@@ -9,7 +9,6 @@ export const getProjectsWithComments: () => Promise<
     const projectsResponse = await axios.get(
       "https://www.behance.net/v2/projects?api_key=u_n_m_o_c_k_200"
     );
-    // ;
     projects = projectsResponse.data.projects;
     console.log(`Got ${projects.length} projects`);
   } catch (err) {

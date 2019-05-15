@@ -1,5 +1,6 @@
 import React from "react";
-import { unmock } from "unmock";
+// import { unmock as unmockJSDom } from "unmock-jsdom";
+import { unmock as unmockNode } from "unmock-node";
 import ErrorComponent from "../components/error-component";
 import ProjectsGrid from "../components/projects-grid";
 import { getProjectsWithComments } from "../util/behance";
@@ -13,7 +14,7 @@ interface Props {
 class MainComponent extends React.Component<Props> {
   public static async getInitialProps(): Promise<Props> {
     /* Initialize unmock in server-side */
-    await unmock({ ignore: "story", token: process.env.UNMOCK_TOKEN });
+    await unmockNode({ token: process.env.UNMOCK_TOKEN });
     console.log("Fetching initial props...");
     try {
       const projectsWithComments = await getProjectsWithComments();
@@ -24,6 +25,8 @@ class MainComponent extends React.Component<Props> {
     }
   }
   public async componentDidMount() {
+    /*
+    // Skipping initializing unmock in browser for now
     if (process.env.UNMOCK_TOKEN) {
       console.log("Initializing unmock with token");
     } else {
@@ -32,6 +35,7 @@ class MainComponent extends React.Component<Props> {
     await unmock({
       token: process.env.UNMOCK_TOKEN,
     });
+    */
   }
   public render() {
     const { err, projectsWithComments } = this.props;
