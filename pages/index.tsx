@@ -2,7 +2,7 @@ import React from "react";
 import { unmock } from "unmock";
 import ErrorComponent from "../components/error-component";
 import ProjectsGrid from "../components/projects-grid";
-import { getProjectsAndComments } from "./util";
+import { getProjectsAndComments } from "../util/behance";
 
 interface IProps {
   comments: any;

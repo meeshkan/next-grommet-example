@@ -1,10 +1,15 @@
 import { Grid } from "grommet";
 import React from "react";
-import { getProject } from "../pages/util";
+import { getProject } from "../util/behance";
+import {
+  Comment,
+  Project,
+  ProjectAndComments,
+  ProjectDetails,
+} from "../util/types";
 import CommentsOpenModal from "./comments-open-modal";
 import DescriptionModal from "./description-open-modal";
 import ProjectBox from "./project-box";
-import { Comment, Project, ProjectAndComments, ProjectDetails } from "./types";
 
 interface IProps {
   projects: Project[];

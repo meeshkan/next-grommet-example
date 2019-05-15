@@ -1,5 +1,5 @@
 import { Box, Heading, Layer } from "grommet";
-import { ProjectAndComments, ProjectDetails } from "./types";
+import { ProjectAndComments, ProjectDetails } from "../util/types";
 
 interface IProps {
   projectAndComments: ProjectAndComments;

@@ -1,5 +1,5 @@
 import { Box, Button, Heading } from "grommet";
-import { Project } from "./types";
+import { Project } from "../util/types";
 
 interface IProps {
   project: Project;

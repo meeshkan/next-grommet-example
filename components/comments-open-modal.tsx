@@ -1,6 +1,6 @@
 import { Box, Heading, Layer } from "grommet";
 import React from "react";
-import { ProjectAndComments } from "./types";
+import { ProjectAndComments } from "../util/types";
 
 interface IProps {
   projectAndComments: ProjectAndComments;
