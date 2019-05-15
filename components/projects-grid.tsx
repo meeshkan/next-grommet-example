@@ -1,19 +1,13 @@
 import { Grid } from "grommet";
 import React from "react";
 import { getProject } from "../util/behance";
-import {
-  Comment,
-  Project,
-  ProjectAndComments,
-  ProjectDetails,
-} from "../util/types";
+import { ProjectAndComments, ProjectDetails } from "../util/types";
 import CommentsOpenModal from "./comments-open-modal";
 import DescriptionModal from "./description-open-modal";
 import ProjectBox from "./project-box";
 
 interface IProps {
-  projects: Project[];
-  comments: Array<{ comments: Comment[] }>;
+  projectsWithComments: ProjectAndComments[];
 }
 
 interface ProjectsById {
@@ -32,13 +26,13 @@ type CommentsOpenState = number | undefined;
 type ProjectDetailsState = ProjectIdAndDetails | undefined;
 
 const ProjectsGrid = (props: IProps) => {
-  const { projects, comments } = props;
+  const { projectsWithComments } = props;
 
   /**
    * Collect all projects in a map by id for easy access
    */
-  const projectsById: ProjectsById = projects.reduce((acc, val, index) => {
-    acc[val.id] = { project: val, comments: comments[index].comments };
+  const projectsById: ProjectsById = projectsWithComments.reduce((acc, val) => {
+    acc[val.project.id] = val;
     return acc;
   }, {});
 
@@ -77,11 +71,15 @@ const ProjectsGrid = (props: IProps) => {
       gap="small"
     >
       {/* Project boxes */}
-      {projects.map((project, i) => (
+      {projectsWithComments.map((projectWithComments, i) => (
         <ProjectBox
-          project={project}
-          onOpenDescription={onOpenDescriptionForProjectId(project.id)}
-          onOpenComments={onOpenCommentsForProjectId(project.id)}
+          project={projectWithComments.project}
+          onOpenDescription={onOpenDescriptionForProjectId(
+            projectWithComments.project.id
+          )}
+          onOpenComments={onOpenCommentsForProjectId(
+            projectWithComments.project.id
+          )}
           key={`project_${i}`}
         />
       ))}

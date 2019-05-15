@@ -2,12 +2,11 @@ import React from "react";
 import { unmock } from "unmock";
 import ErrorComponent from "../components/error-component";
 import ProjectsGrid from "../components/projects-grid";
-import { getProjectsAndComments } from "../util/behance";
-import { Comment, Project } from "../util/types";
+import { getProjectsWithComments } from "../util/behance";
+import { ProjectAndComments } from "../util/types";
 
 interface Props {
-  comments: Array<{ comments: Comment[] }>;
-  projects: Project[];
+  projectsWithComments: ProjectAndComments[];
   err?: string;
 }
 
@@ -17,10 +16,11 @@ class MainComponent extends React.Component<Props> {
     await unmock({ ignore: "story", token: process.env.UNMOCK_TOKEN });
     console.log("Fetching initial props...");
     try {
-      return await getProjectsAndComments();
+      const projectsWithComments = await getProjectsWithComments();
+      return { projectsWithComments };
     } catch (err) {
       console.error("Failed loading data", err.message);
-      return { projects: [], comments: [], err: err.message };
+      return { projectsWithComments: [], err: err.message };
     }
   }
   public async componentDidMount() {
@@ -34,11 +34,11 @@ class MainComponent extends React.Component<Props> {
     });
   }
   public render() {
-    const { err, projects, comments } = this.props;
+    const { err, projectsWithComments } = this.props;
     return (
       <div>
         {err && <ErrorComponent err={err} />}
-        {!err && <ProjectsGrid projects={projects} comments={comments} />}
+        {!err && <ProjectsGrid projectsWithComments={projectsWithComments} />}
       </div>
     );
   }

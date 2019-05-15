@@ -1,10 +1,9 @@
 import axios from "axios";
-import { Comment, Project, ProjectDetails } from "./types";
+import { Project, ProjectAndComments, ProjectDetails } from "./types";
 
-export const getProjectsAndComments: () => Promise<{
-  projects: Project[];
-  comments: Array<{ comments: Comment[] }>;
-}> = async () => {
+export const getProjectsWithComments: () => Promise<
+  ProjectAndComments[]
+> = async () => {
   let projects: Project[] = [];
   try {
     const projectsResponse = await axios.get(
@@ -18,10 +17,8 @@ export const getProjectsAndComments: () => Promise<{
     throw err;
   }
 
-  let comments: Array<{ comments: Comment[] }> = [];
-
   try {
-    comments = await Promise.all(
+    return await Promise.all(
       projects.map(project =>
         axios
           .get(
@@ -29,14 +26,13 @@ export const getProjectsAndComments: () => Promise<{
               project.id
             }/comments?api_key=u_n_m_o_c_k_200`
           )
-          .then(x => x.data, () => ({ comments: [] }))
+          .then(x => ({ project, comments: x.data.comments }))
       )
     );
   } catch (err) {
     console.error("Failed loading comments:", err.message);
     throw err;
   }
-  return { projects, comments };
 };
 
 export const getProject = async (id: number): Promise<ProjectDetails> =>
