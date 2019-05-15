@@ -38,6 +38,9 @@ const ProjectsGrid = (props: IProps) => {
     return acc;
   }, {});
 
+  /**
+   * Define React hooks for managing modals
+   */
   const [
     commentsOpenForProjectId,
     setCommentsOpenForProjectId,

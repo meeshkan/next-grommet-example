@@ -1,5 +1,5 @@
 import { Box, Grommet, Heading } from "grommet";
-import App, { Container } from "next/app";
+import App, { Container } from "next/app"; // tslint:disable-line:no-submodule-imports
 import React from "react";
 
 const theme = {

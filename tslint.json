@@ -2,6 +2,9 @@
   "defaultSeverity": "error",
   "extends": ["tslint:latest", "tslint-config-prettier"],
   "jsRules": {},
-  "rules": {},
+  "rules": {
+    "interface-over-type-literal": false,
+    "no-console": false
+  },
   "rulesDirectory": []
 }
