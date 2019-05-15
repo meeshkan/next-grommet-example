@@ -1,5 +1,5 @@
 import React from "react";
-// import { unmock as unmockJSDom } from "unmock-jsdom";
+import { unmock as unmockJSDom } from "unmock-jsdom";
 import { unmock as unmockNode } from "unmock-node";
 import ErrorComponent from "../components/error-component";
 import ProjectsGrid from "../components/projects-grid";
@@ -25,17 +25,14 @@ class MainComponent extends React.Component<Props> {
     }
   }
   public async componentDidMount() {
-    /*
-    // Skipping initializing unmock in browser for now
     if (process.env.UNMOCK_TOKEN) {
       console.log("Initializing unmock with token");
     } else {
       console.warn("No UNMOCK_TOKEN provided, initializing without token!");
     }
-    await unmock({
+    await unmockJSDom({
       token: process.env.UNMOCK_TOKEN,
     });
-    */
   }
   public render() {
     const { err, projectsWithComments } = this.props;
