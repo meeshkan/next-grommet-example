@@ -2,6 +2,7 @@ import { Box, Button, Grid, Heading, Layer } from "grommet";
 import React from "react";
 import { getProject } from "../pages/util";
 import CommentsOpenModal from "./comments-open-modal";
+import DescriptionModal from "./description-open-modal";
 
 interface IProps {
   projects: any;
@@ -63,6 +64,7 @@ const ProjectsComponent = (props: IProps) => {
             style={{ display: "block", width: "270px", height: "270px" }}
             src={project.covers["202"]}
           />
+          {/* Project box buttons */}
           <div>
             <Button
               margin={{ right: "small" }}
@@ -87,19 +89,11 @@ const ProjectsComponent = (props: IProps) => {
       ))}
       {/* Project details modal */}
       {projectDetailsOpenForId && (
-        <Layer
-          position="center"
-          modal
-          onClickOutside={closeDescription}
-          onEsc={closeDescription}
-        >
-          <Box pad="medium" flex overflow="auto">
-            <Heading level="3">
-              Say hi to {projectsById[projectDetailsOpenForId.id].project.name}
-            </Heading>
-            <div>{projectDetailsOpenForId.details.description}</div>
-          </Box>
-        </Layer>
+        <DescriptionModal
+          projectAndComments={projectsById[projectDetailsOpenForId.id]}
+          details={projectDetailsOpenForId.details}
+          close={closeDescription}
+        />
       )}
       {/* Comments modal */}
       {commentsOpenForProjectId && (
