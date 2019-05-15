@@ -10,13 +10,7 @@ interface IProps {
   err: string;
 }
 
-interface IState {
-  detailedProjects: any;
-  commentsOpen: any;
-  descriptionOpen: any;
-}
-
-class MainComponent extends React.Component<IProps, IState> {
+class MainComponent extends React.Component<IProps> {
   public static async getInitialProps() {
     // Initialize unmock in server-side
     await unmock({ ignore: "story", token: process.env.UNMOCK_TOKEN });
@@ -28,18 +22,15 @@ class MainComponent extends React.Component<IProps, IState> {
       return { err: err.message };
     }
   }
-  public state: IState = {
-    commentsOpen: {},
-    descriptionOpen: {},
-    detailedProjects: {},
-  };
   public async componentDidMount() {
-    console.log(`Initializing unmock`, process.env.UNMOCK_TOKEN);
     if (process.env.UNMOCK_TOKEN) {
-      await unmock({
-        token: process.env.UNMOCK_TOKEN,
-      });
+      console.log("Initializing unmock with token");
+    } else {
+      console.warn("No UNMOCK_TOKEN provided, initializing without token!");
     }
+    await unmock({
+      token: process.env.UNMOCK_TOKEN,
+    });
   }
   public render() {
     const { err, projects, comments } = this.props;

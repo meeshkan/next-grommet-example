@@ -24,8 +24,15 @@ type ProjectDetails = {
   details: any;
 };
 
+type CommentsOpenState = number | undefined;
+type ProjectDetailsState = ProjectDetails | undefined;
+
 const ProjectsComponent = (props: IProps) => {
   const { projects, comments } = props;
+
+  /**
+   * Collect all projects in a map by id
+   */
   const projectsById: ProjectsById = projects.reduce((acc, val, index) => {
     acc[val.id] = { project: val, comments: comments[index].comments };
     return acc;
@@ -34,14 +41,25 @@ const ProjectsComponent = (props: IProps) => {
   const [
     commentsOpenForProjectId,
     setCommentsOpenForProjectId,
-  ] = React.useState(undefined);
+  ] = React.useState(undefined as CommentsOpenState);
 
   const [projectDetailsOpenForId, setProjectDetailsOpenForId] = React.useState(
-    undefined as ProjectDetails
+    undefined as ProjectDetailsState
   );
 
   const closeComment = () => setCommentsOpenForProjectId(undefined);
   const closeDescription = () => setProjectDetailsOpenForId(undefined);
+
+  const onOpenDescriptionForProjectId = (projectId: number) => async () => {
+    const detailedProjectResult = await getProject(projectId);
+    setProjectDetailsOpenForId({
+      details: detailedProjectResult,
+      id: projectId,
+    });
+  };
+
+  const onOpenCommentsForProjectId = (projectId: number) => () =>
+    setCommentsOpenForProjectId(projectId);
 
   return (
     <Grid
@@ -51,21 +69,14 @@ const ProjectsComponent = (props: IProps) => {
       }}
       gap="small"
     >
+      {/* Project boxes */}
       {projects.map((project, i) => (
         <ProjectBox
           project={project}
-          onOpenDescription={async () => {
-            const detailedProjectResult = await getProject(project.id);
-            setProjectDetailsOpenForId({
-              details: detailedProjectResult,
-              id: project.id,
-            });
-          }}
-          onOpenComments={() => {
-            setCommentsOpenForProjectId(project.id);
-          }}
+          onOpenDescription={onOpenDescriptionForProjectId(project.id)}
+          onOpenComments={onOpenCommentsForProjectId(project.id)}
+          key={`project_${i}`}
         />
-      ))}
       ))}
       {/* Project details modal */}
       {projectDetailsOpenForId && (

@@ -13,7 +13,6 @@ const Project = (props: IProps) => (
     justify="center"
     pad="medium"
     elevation="small"
-    key={props.project.name}
   >
     <Heading level="3">{props.project.name}</Heading>
     <img
