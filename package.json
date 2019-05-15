@@ -26,5 +26,8 @@
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.2.0"
+  },
+  "browser": {
+    "unmock-node": false
   }
 }
