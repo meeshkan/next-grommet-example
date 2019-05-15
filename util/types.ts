@@ -5,13 +5,13 @@ export interface Project {
 }
 
 export interface Comment {
-  user: { firstname: string };
+  user: { first_name: string };
   comment: string;
 }
 
 export interface ProjectAndComments {
   project: Project;
-  comments: any[];
+  comments: Comment[];
 }
 
 export interface ProjectDetails {

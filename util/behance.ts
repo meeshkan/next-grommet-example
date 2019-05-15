@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Project, ProjectDetails } from "./types";
+import { Comment, Project, ProjectDetails } from "./types";
 
 export const getProjectsAndComments: () => Promise<{
   projects: Project[];
