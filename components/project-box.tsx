@@ -1,7 +1,8 @@
 import { Box, Button, Heading } from "grommet";
+import { Project } from "./types";
 
 interface IProps {
-  project: any;
+  project: Project;
   onOpenDescription: () => void;
   onOpenComments: () => void;
 }

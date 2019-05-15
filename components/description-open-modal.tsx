@@ -1,8 +1,9 @@
 import { Box, Heading, Layer } from "grommet";
+import { ProjectAndComments, ProjectDetails } from "./types";
 
 interface IProps {
-  projectAndComments: any;
-  details: any;
+  projectAndComments: ProjectAndComments;
+  details: ProjectDetails;
   close: () => void;
 }
 

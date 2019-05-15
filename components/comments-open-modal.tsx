@@ -1,8 +1,9 @@
 import { Box, Heading, Layer } from "grommet";
 import React from "react";
+import { ProjectAndComments } from "./types";
 
 interface IProps {
-  projectAndComments: any;
+  projectAndComments: ProjectAndComments;
   closeComment: () => void;
 }
 

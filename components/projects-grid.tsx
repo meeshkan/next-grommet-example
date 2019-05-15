@@ -4,34 +4,33 @@ import { getProject } from "../pages/util";
 import CommentsOpenModal from "./comments-open-modal";
 import DescriptionModal from "./description-open-modal";
 import ProjectBox from "./project-box";
+import { Comment, Project, ProjectAndComments, ProjectDetails } from "./types";
 
 interface IProps {
-  projects: any;
-  comments: any;
+  projects: Project[];
+  comments: Array<{ comments: Comment[] }>;
 }
 
-type ProjectAndComments = {
-  project: any;
-  comments: any[];
-};
-
-type ProjectsById = {
+interface ProjectsById {
   [id: number]: ProjectAndComments;
-};
+}
 
-type ProjectDetails = {
+interface ProjectIdAndDetails {
   id: number;
-  details: any;
-};
+  details: ProjectDetails;
+}
 
+/* Comments open or not, either project ID or undefined*/
 type CommentsOpenState = number | undefined;
-type ProjectDetailsState = ProjectDetails | undefined;
+
+/* Project details open or not, either project details or undefined */
+type ProjectDetailsState = ProjectIdAndDetails | undefined;
 
 const ProjectsGrid = (props: IProps) => {
   const { projects, comments } = props;
 
   /**
-   * Collect all projects in a map by id
+   * Collect all projects in a map by id for easy access
    */
   const projectsById: ProjectsById = projects.reduce((acc, val, index) => {
     acc[val.id] = { project: val, comments: comments[index].comments };
