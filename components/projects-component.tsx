@@ -1,8 +1,9 @@
-import { Box, Button, Grid, Heading, Layer } from "grommet";
+import { Grid } from "grommet";
 import React from "react";
 import { getProject } from "../pages/util";
 import CommentsOpenModal from "./comments-open-modal";
 import DescriptionModal from "./description-open-modal";
+import ProjectBox from "./project";
 
 interface IProps {
   projects: any;
@@ -51,41 +52,20 @@ const ProjectsComponent = (props: IProps) => {
       gap="small"
     >
       {projects.map((project, i) => (
-        <Box
-          gap="small"
-          direction="column"
-          justify="center"
-          pad="medium"
-          elevation="small"
-          key={`project_${i}`}
-        >
-          <Heading level="3">{project.name}</Heading>
-          <img
-            style={{ display: "block", width: "270px", height: "270px" }}
-            src={project.covers["202"]}
-          />
-          {/* Project box buttons */}
-          <div>
-            <Button
-              margin={{ right: "small" }}
-              primary
-              onClick={async () => {
-                const detailedProjectResult = await getProject(project.id);
-                setProjectDetailsOpenForId({
-                  details: detailedProjectResult,
-                  id: project.id,
-                });
-              }}
-              label="Description"
-            />
-            <Button
-              onClick={() => {
-                setCommentsOpenForProjectId(project.id);
-              }}
-              label="Comments"
-            />
-          </div>
-        </Box>
+        <ProjectBox
+          project={project}
+          onOpenDescription={async () => {
+            const detailedProjectResult = await getProject(project.id);
+            setProjectDetailsOpenForId({
+              details: detailedProjectResult,
+              id: project.id,
+            });
+          }}
+          onOpenComments={() => {
+            setCommentsOpenForProjectId(project.id);
+          }}
+        />
+      ))}
       ))}
       {/* Project details modal */}
       {projectDetailsOpenForId && (
