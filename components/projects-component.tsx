@@ -1,6 +1,7 @@
 import { Box, Button, Grid, Heading, Layer } from "grommet";
 import React from "react";
 import { getProject } from "../pages/util";
+import CommentsOpenModal from "./comments-open-modal";
 
 interface IProps {
   projects: any;
@@ -84,6 +85,7 @@ const ProjectsComponent = (props: IProps) => {
           </div>
         </Box>
       ))}
+      {/* Project details modal */}
       {projectDetailsOpenForId && (
         <Layer
           position="center"
@@ -99,31 +101,13 @@ const ProjectsComponent = (props: IProps) => {
           </Box>
         </Layer>
       )}
+      {/* Comments modal */}
       {commentsOpenForProjectId && (
-        <Layer
-          position="center"
-          modal
-          onClickOutside={closeComment}
-          onEsc={closeComment}
-        >
-          <Box pad="medium" flex overflow="auto">
-            <Heading level="3">
-              Comments about{" "}
-              {projectsById[commentsOpenForProjectId].project.name}
-            </Heading>
-            <div>
-              {projectsById[commentsOpenForProjectId].comments.map(
-                (comment, j) => (
-                  <div key={`comment_${j}`}>
-                    <strong>{comment.user.first_name} said </strong>
-                    {comment.comment}
-                    <hr />
-                  </div>
-                )
-              )}
-            </div>
-          </Box>
-        </Layer>
+        <CommentsOpenModal
+          projectAndComments={projectsById[commentsOpenForProjectId]}
+          closeComment={closeComment}
+        />
+      )}
       )}
     </Grid>
   );
