@@ -15,9 +15,7 @@ const DescriptionModal = (props: IProps) => (
     onEsc={props.close}
   >
     <Box pad="medium" flex overflow="auto">
-      <Heading level="3">
-        Say hi to {props.projectAndComments.project.name}
-      </Heading>
+      <Heading level="3">{props.projectAndComments.project.name}</Heading>
       <div>{props.details.description}</div>
     </Box>
   </Layer>

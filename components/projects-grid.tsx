@@ -3,7 +3,7 @@ import React from "react";
 import { getProject } from "../util/behance";
 import { ProjectAndComments, ProjectDetails } from "../util/types";
 import CommentsOpenModal from "./comments-open-modal";
-import DescriptionModal from "./description-open-modal";
+import DescriptionModal from "./description-modal";
 import ProjectBox from "./project-box";
 
 interface IProps {
