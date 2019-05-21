@@ -7,7 +7,7 @@ export const getProjectsWithComments: () => Promise<
   let projects: Project[] = [];
   try {
     const projectsResponse = await axios.get(
-      "https://www.behance.net/v2/projects?api_key=u_n_m_o_c_k_200"
+      "https://www.behance.net/v2/projects?api_key=BEHANCE_API_KEY"
     );
     projects = projectsResponse.data.projects;
     console.log(`Got ${projects.length} projects`);
