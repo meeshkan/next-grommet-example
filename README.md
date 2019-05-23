@@ -15,7 +15,7 @@ yarn
 Start the development server:
 
 ```
-yarn next
+yarn start
 ```
 
 Navigate to `http://localhost:3000`.
@@ -23,5 +23,5 @@ Navigate to `http://localhost:3000`.
 You may notice that the app is complaining about missing `UNMOCK_TOKEN` environment variable. To suppress the message and to ensure private mocks, sign up for free at [https://unmock.io](https://unmock.io) and start the server with
 
 ```
-UNMOCK_TOKEN={your token here} yarn next
+UNMOCK_TOKEN={your token here} yarn start
 ```

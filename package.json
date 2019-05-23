@@ -2,6 +2,7 @@
   "scripts": {
     "build": "next build",
     "next": "next",
+    "start": "next",
     "lint": "tslint --project .",
     "test": "jest"
   },
