@@ -25,3 +25,9 @@ You may notice that the app is complaining about missing `UNMOCK_TOKEN` environm
 ```
 UNMOCK_TOKEN={your token here} yarn start
 ```
+
+## Contributing
+
+If you notice an error or you'd like to add something new to this example, please [open an issue](https://github.com/unmock/next-grommet-example/issues). We really appreciate the feedback and support! 
+
+Please note that this project is governed by the [Unmock Community Code of Conduct](https://github.com/unmock/code-of-conduct). By participating in this project, you agree to abide by its terms.
