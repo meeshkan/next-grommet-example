@@ -1,5 +1,7 @@
 # Next.js app with Grommet and unmock
 
+:warning: **This example is using an outdated version of Unmock.** If you'd be interested in helping us update this, please check out this [open issue](https://github.com/unmock/next-grommet-example/issues/5).
+
 This is the code accompanying the [Medium post](https://medium.com/@meeshkan/c502f099a086) on how to build a Next.js app with Grommet, using mock data from [unmock](https://unmock.io) for development.
 
 ## Development
